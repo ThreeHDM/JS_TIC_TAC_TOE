@@ -47,6 +47,7 @@ function turnClick(square) {
 function turn(squareId, player){
     // Le pasa el símbolo del jugador al cuadrado
     origBoard[squareId] = player;
+    console.log(origBoard)
     document.getElementById(squareId).innerText = player;
     let gameWon = checkWin(origBoard, player)
     if(gameWon) {
@@ -55,14 +56,41 @@ function turn(squareId, player){
 }
 
 function checkWin(board, player) {
+    /*
+   
+    arr.reduce(
+        callback("acumulador (A)", valorActual (E), índice (I))
+        ,
+        valorInicial []
+        )
+    */
 
-    let plays = board.reduce((a, e, i) => (e === player)) ? a.concat(i) : a, []);
+    /*reduce()
+        (a, b) son los parámetros que recibe la función, es nuestro ejemplo a = 10 y b = 20. Nuestra función retorna la suma de ambos, es decir 30. Debido a que existen más elementos en el array, la función reduce() es invocada nuevamente, la diferencia radica en que el parámetro “a” ahora es igual a 30 (representa el monto acumulado) y “b” es el elemento restante en el array, es decir 30. Al concretarse la operación el resultado que será mostrado en consola es ahora igual a 60.
+    */
+    
+    //Plays es una array que devuelve dónde jugó el jugador.
+    let plays = board.reduce(
+        //funcion acumuladora
+        /*
+        a -> acumulador: es el valor del cada elemento del array acumulado 
+        b -> valor actual: es el valor del array ahora. Puede ser el símbolo del jugador o un número
+        c -> indice: es el key/indice del array donde estoy parado. Es siempre un número
+         */
+        (a, e, i) => (e === player) ? a.concat(i) : a // 1er param de reduce
+        ,
+        [] // 2do param de reduce
+    )// cierre de reduce
+    
+    console.log(plays)
+
     let gameWon = null;
+
     for (let [index, win] of winCombos.entries()) {
-        if (win.every(elem = plays.indexOf(elem > -1)) {
+        if (win.every((elem) => plays.indexOf(elem > -1))) {
             gameWon = {index: index, player: player};
             break;
-        });
+        };
         return gameWon;
     }
 }

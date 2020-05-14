@@ -2,7 +2,7 @@
 var origBoard;
 
 // El Human Player
-const huPlayer = '0';
+const huPlayer = 'O';
 
 // AI Player
 const aiPlayer = 'X';
@@ -80,20 +80,91 @@ function checkWin(board, player) {
         (a, e, i) => (e === player) ? a.concat(i) : a // 1er param de reduce
         ,
         [] // 2do param de reduce
-    )// cierre de reduce
+    );// cierre de reduce
     
-    console.log(plays)
+    
+       /* 
+       El forof: ejecuta un bloque de código para cada elemento de un objeto iterable
+        for (variable of iterable){
+            //bloque de codigo
+        }
 
-    let gameWon = null;
+        for (i of "Moli"){
+            i+= "e";
+            console.log(i)
+        }
+            // Me
+            // oe
+            // le
+            // ie
+       */
 
-    for (let [index, win] of winCombos.entries()) {
-        if (win.every((elem) => plays.indexOf(elem > -1))) {
+       /*
+        The entries() method returns an Array Iterator object with key/value pairs.
+
+        For each item in the original array, the new iteration object will contain an array with the index as the key, and the item value as the value:
+
+        [0, "Banana"]
+        [1, "Orange"]
+        [2, "Apple"]
+        [3, "Mango"]
+       */
+       
+       /*
+       .
+        */
+       
+       
+      
+      //let arr = ["a", "b", "c"]
+      //console.log(arr.indexOf("c"));
+      
+       let gameWon = null;
+
+       function nombreFuncion(elem){
+        console.log("el elem es: " + elem)
+        console.log("array plays es: " + plays)
+        console.log("el indice del elemento es: " + plays.indexOf(elem))
+        return plays.indexOf(elem) > -1
+    }
+
+       for (let [index, win] of winCombos.entries()) {
+           //Index es el key del Array Iterator
+           //console.log(index);
+           //win es el array ganador de esta iteración
+           //console.log(win);
+           
+        /*
+        .every() revisa cada elemento del array y ejecuta una función. 
+        Determina si todos los elementos en el array satisfacen una condición.
+        */
+
+        
+        if (win.every(nombreFuncion)) {
+            //console.log("entró al if");
             gameWon = {index: index, player: player};
+            
             break;
         };
-        return gameWon;
+        //console.log("no entró al if");
     }
+    return gameWon;
 }
+
+function gameOver(gameWon) {
+    console.log("test");
+    
+    for(let index of winCombos[gameWon.index]){
+        document.getElementById(index).style.backgroundColor = gameWon.player == huPlayer ? "blue" : "red";
+    }
+
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].removeEventListener('click', turnClick, false)
+    }
+        
+}
+
+
 /*
 Arrow Function
 const add = (a, b) => (a + b)

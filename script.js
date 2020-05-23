@@ -209,32 +209,31 @@ function checkTie(){
 
 
 /*
-Arrow Function
-const add = (a, b) => (a + b)
+    Arrow Function
+    const add = (a, b) => (a + b)
 
-Is equivalent to
+    Is equivalent to
 
-const add = (a, b) => {
-    return a + b;
-}
+    const add = (a, b) => {
+        return a + b;
+    }
 
-When you use the() after your => it just automatically returns the values inside.
+    When you use the() after your => it just automatically returns the values inside.
 
-const moli = (x, y) => (x+y);
+    const moli = (x, y) => (x+y);
 
-console.log(moli(1,2) )
-*/
+    console.log(moli(1,2) )
+    */
 
-/*
-Ternary operator
+    /*
+    Ternary operator
 
-var foo;
-if(x){
-    foo = algo
-} else {
-    foo = otra
-}
+    var foo;
+    if(x){
+        foo = algo
+    } else {
+        foo = otra
+    }
 
-var foo = (x) ?  "valor verdadero" : "valor falso";
-
+    var foo = (x) ?  "valor verdadero" : "valor falso";
 */

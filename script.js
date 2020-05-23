@@ -41,7 +41,14 @@ function startGame(){
 }
 
 function turnClick(square) {
-    turn(square.target.id, huPlayer)
+    //type of determina si jugó ninguno de los jugadores en este lugar. Al ser number no jugó nadie
+    if(typeof origBoard[square.target.id] == 'number') {
+        if(!turn(square.target.id, huPlayer)){
+            if(!checkTie()){
+                turn(bestSpot(emptySquares().length), aiPlayer);
+            }
+        }
+    }
 }
 
 function turn(squareId, player){
@@ -52,7 +59,9 @@ function turn(squareId, player){
     let gameWon = checkWin(origBoard, player)
     if(gameWon) {
         gameOver(gameWon)
-    } 
+        return true
+    }
+    return false
 }
 
 function checkWin(board, player) {
@@ -122,9 +131,9 @@ function checkWin(board, player) {
        let gameWon = null;
 
        function nombreFuncion(elem){
-        console.log("el elem es: " + elem)
-        console.log("array plays es: " + plays)
-        console.log("el indice del elemento es: " + plays.indexOf(elem))
+        //console.log("el elem es: " + elem)
+        //console.log("array plays es: " + plays)
+        //console.log("el indice del elemento es: " + plays.indexOf(elem))
         return plays.indexOf(elem) > -1
     }
 
@@ -141,7 +150,7 @@ function checkWin(board, player) {
 
         
         if (win.every(nombreFuncion)) {
-            //console.log("entró al if");
+            console.log("entró al if de Game WON");
             gameWon = {index: index, player: player};
             
             break;
@@ -161,8 +170,42 @@ function gameOver(gameWon) {
     for (let i = 0; i < cells.length; i++) {
         cells[i].removeEventListener('click', turnClick, false)
     }
+    declareWinner(gameWon.player == huPlayer ? "You win!" : "You loose!");
         
 }
+
+/******************BASIC AI **************** */
+
+function declareWinner(who){
+    document.querySelector(".endgame").style.display = "block";
+    document.querySelector(".endgame .text").innerText = who;
+}
+
+function emptySquares(){
+    let squareEmpty = origBoard.filter(s => typeof s == 'number');
+    console.log("esto es empty squares " + squareEmpty)
+    return  squareEmpty;
+}
+
+function bestSpot(length) {
+    index = Math.floor((Math.random() * length))
+    console.log("el indice es:" + index);
+    return emptySquares()[index];
+}
+
+function checkTie(){
+    if(emptySquares().length == 0){
+        for (var i = 0; i < cells.length; i++){
+            cells[i].style.backgroundColor = "green";
+            cells[i].removeEventListener('click', turnClick, false);
+        }
+        declareWinner("Tie Game!");
+        return true;
+    }
+    return false;
+}
+
+/******************BASIC AI **************** */
 
 
 /*

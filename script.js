@@ -164,7 +164,7 @@ function gameOver(gameWon) {
     console.log("test");
     
     for(let index of winCombos[gameWon.index]){
-        document.getElementById(index).style.backgroundColor = gameWon.player == huPlayer ? "blue" : "red";
+        document.getElementById(index).style.backgroundColor = gameWon.player == huPlayer ? "#595ea3" : "#AD3232";
     }
 
     for (let i = 0; i < cells.length; i++) {
